@@ -1,0 +1,132 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link href="/node_modules/mocha/mocha.css" rel="stylesheet" />
+  <script type="text/javascript">window.module = {};</script>
+  <script type="text/javascript" src="/src/index.js"></script>
+</head>
+<body>
+  <div id="mocha"></div>
+  <script type="text/javascript" src="/node_modules/mocha/mocha.js"></script>
+  <script type="text/javascript" src="/node_modules/should/should.js"></script>
+
+  <script>mocha.setup('bdd')</script>
+  <script>
+    var CrossImage = module.exports;
+
+    // CrossImage.getFitUrl(src,width,height,config,isForce)
+
+    describe('CrossImage', function() {
+      it('should add rule with setup width and height', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg';
+        CrossImage.getFitUrl(img, 150, 150, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_300x1000Q30s50.jpg_.webp')
+      })
+
+      it('should be removed suffix and add rule', function() {
+        var img = 'http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_300x1000Q30.jpg';
+        
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_2200x2200Q50s50.jpg_.webp');
+        var img1 = "https://img.alicdn.com/bao/uploaded/i4/TB1SQ4FMFXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x100Q30s50.jpg_.webp";
+        CrossImage.getFitUrl(img1, 160, 160, {}).should.equal('https://img.alicdn.com/bao/uploaded/i4/TB1SQ4FMFXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x5000Q30s50.jpg_.webp');
+        var img2 = "https://img.alicdn.com/bao/uploaded/i4/TB1SQ4FMFXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x100Q30s150.jpg_.webp";
+        CrossImage.getFitUrl(img2, 160, 160, {}).should.equal('https://img.alicdn.com/bao/uploaded/i4/TB1SQ4FMFXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x5000Q30s50.jpg_.webp');
+        var img3 = "https://img.alicdn.com/bao/uploaded/i4/TB1SQ4FMFXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x100Q30s15011.jpg_.webp";
+        CrossImage.getFitUrl(img3, 160, 160, {}).should.equal('https://img.alicdn.com/bao/uploaded/i4/TB1SQ4FMFXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x5000Q30s50.jpg_.webp');
+      })
+
+      it('should be only add webp to png file', function() {
+        var img = 'https://img.alicdn.com/tps/i3/TB1z5R9LXXXXXa5XFXXpu65FpXX-22-26.png_Q60.jpg_.webp';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('https://img.alicdn.com/tps/i3/TB1z5R9LXXXXXa5XFXXpu65FpXX-22-26.png_Q60.jpg_.webp');
+
+        var img1 = 'https://img.alicdn.com/tps/i3/TB1z5R9LXXXXXa5XFXXpu65FpXX-22-26.png_Q60.jpg';
+
+        CrossImage.getFitUrl(img1, 0, 0, {}).should.equal('https://img.alicdn.com/tps/i3/TB1z5R9LXXXXXa5XFXXpu65FpXX-22-26.png_Q60.jpg_.webp');
+      })
+
+      it('should be dont add rule on gif file', function() {
+        var img = 'https://img.alicdn.com/tps/i2/TB1ybRMHXXXXXb1aXXXuUfPHFXX-60-42.gif';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('https://img.alicdn.com/tps/i2/TB1ybRMHXXXXXb1aXXXuUfPHFXX-60-42.gif')
+      })
+
+      it('should be dont add rule on svg file', function() {
+        var img = 'https://img.alicdn.com/tps/TB1tB_2LVXXXXaVaXXXXXXXXXXX-1024-1024.svg';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('https://img.alicdn.com/tps/TB1tB_2LVXXXXaVaXXXXXXXXXXX-1024-1024.svg')
+      })
+
+      it('should be force add rule on each file', function() {
+        var img = 'https://img.alicdn.com/tps/i2/TB1ybRMHXXXXXb1aXXXuUfPHFXX-60-42.gif';
+
+        CrossImage.getFitUrl(img, 0, 0, {}, true).should.equal('https://img.alicdn.com/tps/i2/TB1ybRMHXXXXXb1aXXXuUfPHFXX-60-42.gif_2200x2200Q50s50.jpg_.webp')
+      })
+
+      it('should be add rule with width 320 and height 150', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg';
+
+        CrossImage.getFitUrl(img, 320, 150, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_640x640Q30s50.jpg_.webp')
+      })
+
+      it('should be add rule with width 450', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg';
+
+        CrossImage.getFitUrl(img, 450, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_960x960Q30s50.jpg_.webp')
+      })
+
+      it('should be add rule with height 670', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg';
+
+        CrossImage.getFitUrl(img, 0, 670, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_2200x2200Q50s50.jpg_.webp')
+      })
+
+      it('should be add rule with unknow width and height', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_2200x2200Q50s50.jpg_.webp')
+      })
+
+      it('should be add rule with url has rule', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_270x270q90.jpg_.webp';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_2200x2200Q50s50.jpg_.webp')
+      })
+
+      it('should be add rule with url has rule cut "xz"', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_270x270xzq90.jpg_.webp';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_270x270xzq90.jpg_.webp')
+      })
+
+      it('should be add rule with url has rule cut "xc"', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_270x270xcq90.jpg_.webp';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_270x270xcq90.jpg_.webp')
+      })
+
+      it('should be add rule with url has rule cut "co0"', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_270x270co0q90.jpg_.webp';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_270x270co0q90.jpg_.webp')
+      })
+
+      it('should be add rule with url has rule cut "g"', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_g.jpg_.webp';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_g.jpg_.webp')
+      })
+
+      it('should be add rule with url has rule cut "c[xy]\d+i\d"', function() {
+        var img = 'http://gi2.md.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_cx200i100.jpg_.webp';
+
+        CrossImage.getFitUrl(img, 0, 0, {}).should.equal('http://img.alicdn.com/bao/uploadedi4/1804033223/T2nFegXFVaXXXXXXXX_!!1804033223.jpg_cx200i100.jpg_.webp')
+      })
+    })
+  </script>
+  <script>
+    mocha.checkLeaks();
+    mocha.run();
+  </script>
+</body>
+</html>

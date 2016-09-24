@@ -1,0 +1,91 @@
+{
+  "combine": true,
+  "modules": {
+    "mui/crossimage/index": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/datalazyload/index": {
+      "requires": [
+        "mui/zepto/zepto",
+        "mui/zepto/event"
+      ]
+    },
+    "mui/zepto/event": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/form": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/fx": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/fx_methods": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/gesture": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/ie": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/selector": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/stack": {
+      "requires": [
+        "mui/zepto/zepto"
+      ]
+    },
+    "mui/zepto/touch": {
+      "requires": [
+        "mui/zepto/zepto",
+        "mui/zepto/event"
+      ]
+    }
+  },
+  "packages": {
+    "mui/crossimage": {
+      "debug": true,
+      "group": "tm",
+      "ignorePackageNameInUri": true,
+      "path": "//g.alicdn.com/mui/crossimage/4.0.21/",
+      "version": "4.0.21"
+    },
+    "mui/datalazyload": {
+      "debug": true,
+      "ignorePackageNameInUri": true,
+      "path": "//g.alicdn.com/mui/datalazyload/4.0.17/",
+      "version": "4.0.17"
+    },
+    "mui/jquery": {
+      "debug": true,
+      "group": "tm",
+      "ignorePackageNameInUri": true,
+      "path": "//g.alicdn.com/mui/jquery/4.0.1/",
+      "version": "4.0.1"
+    },
+    "mui/zepto": {
+      "debug": true,
+      "group": "tm",
+      "ignorePackageNameInUri": true,
+      "path": "//g.alicdn.com/mui/zepto/4.0.3/",
+      "version": "4.0.3"
+    }
+  }
+}

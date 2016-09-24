@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="//g.alicdn.com/??mui/global/1.2.42/global.css"/>
+    <style>div{line-height: 32px;}</style>
+    <script src="//g.alicdn.com/mui/feloader/4.0.10/feloader-min.js"></script>
+    <script src="//g.alicdn.com/mui/crossimage/4.0.5/seed.js"></script></head>
+<body>
+<textarea id="inStr" style="width: 90%;height:300px;"></textarea>
+<textarea id="outStr" style="width: 90%;height:300px;"></textarea>
+</body>
+</html>
+<script language="javascript">
+    function sequence (list){
+        var len = list.length;
+        var i=0;
+
+        while(i  < len){
+        var j = (i++) + 1;
+              while( (j++) < len - 1){
+                  var temp;
+                  var listA = list[i];
+                  var listB = list[j];
+                  var a = Math.min(listA[0],(listA[1] || Infinity));
+                  var b = Math.min(listB[0],(listB[1] || Infinity));
+
+                  if(a > b){
+                      temp = list[i];
+                      list[i] = list[j];
+                      list[j] = temp;
+                  }
+              }
+          }
+          return list; 
+      }
+    function refresh() {
+        var list=[],map={},result,str= document.getElementById("inStr").value ,reg= /\["(\d+)x(\d+)"\]\s*=\s*\{\1,\s*\2/g;
+        while(result=(reg.exec(str)))
+        {
+            if(map[result[0]]){continue;}
+            map[result[0]]=1;
+            list.push(result[1]!=result[2]?[parseInt(result[1],10),parseInt(result[2],10)]:[parseInt(result[1],10)]);
+        }
+        list=list.sort(function(a,b){return a[0]-b[0];});
+
+        list = sequence(list);
+        document.getElementById("outStr").innerHTML= JSON.stringify(list);
+    }
+    KISSY.use("event", function (S, Event) {
+        Event.on("#inStr", "change", refresh);
+    });
+    refresh();
+</script>

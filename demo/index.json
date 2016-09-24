@@ -1,0 +1,7 @@
+{
+  "engine": "xtemplate",
+  "inputCharset": "utf-8",
+  "data": {
+    "mock": "./data.json"
+  }
+}

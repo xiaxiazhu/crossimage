@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>基础范例</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=321"/>
+    <script src="//g.alicdn.com/mui/feloader/4.0.10/feloader-min.js"></script>
+    <script src="//g.alicdn.com/mui/crossimage/4.0.5/seed.js"></script></head>
+<body>
+<input type="text" id="testInput1"/>
+<img id="testImg1" style="width:100%"/>
+<img id="testImg2" style="width:100%"/>
+<div id="testImg3" style="width:200px;height:200px;border:solid 1px green;background-repeat:no-repeat;"></div>
+</body>
+</html>
+<script language="javascript">
+    require(["mui/crossimage/index"], function (Crossimage) {
+        document.getElementById("testInput1").value = Crossimage.getFitUrl("", {srcRatio: 1});
+        document.getElementById("testImg1").src = Crossimage.getFitUrl("//img.alicdn.com/Crossimage/i3/TB1n.CRHXXXXXbdXFXXJMm1PpXX-1050-870.jpg_Q90.jpg")
+        document.getElementById("testImg2").src = Crossimage.getFitUrl("//img.alicdn.com/imgextra/i2/2058319646/TB28TfybFXXXXXOXpXXXXXXXXXX_!!2058319646.jpg")
+        document.getElementById("testImg3").style.backgroundImage = "url(" + Crossimage.getFitUrl("//img.alicdn.com/imgextra/i2/2058319646/TB28TfybFXXXXXOXpXXXXXXXXXX_!!2058319646.jpg",  200, 200) + ")"
+    })
+</script>

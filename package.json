@@ -1,0 +1,43 @@
+{
+  "name": "crossimage",
+  "version": "4.0.21",
+  "description": "CrossImage是一个天猫前端与核心系统部合作出品的插件。 它结合cdn的缩放参数和屏幕情况，自动加载最适合的图片，节省流程，提高用户体验，同时降低开发成本。",
+  "main": "Gruntfile.js",
+  "feDependencies": {
+    "mui/datalazyload": "4.0.x",
+    "mui/zepto": "4.0.x"
+  },
+  "devDependencies": {
+    "@ali/gulp-xtpl": "*",
+    "@ali/tap-plugin-check": "~1.0.4",
+    "autod": "2",
+    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-react": "^6.0.0",
+    "babel-preset-stage-1": "^6.0.0",
+    "colors": "^0.6.2",
+    "del": "^0.1.3",
+    "gulp": "3.x.x",
+    "gulp-babel": "^6.0.0",
+    "gulp-code": "~2.4.2",
+    "gulp-if": "*",
+    "gulp-less": "*",
+    "gulp-plumber": "^0.6.5",
+    "mocha": "*",
+    "should": "~8.2.2"
+  },
+  "kissyVersion": "1.4.10",
+  "scripts": {
+    "test": "anywhere"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.alibaba-inc.com:cross/crossimage.git"
+  },
+  "keywords": [
+    "图片",
+    "跨终端",
+    "适配"
+  ],
+  "author": "斯肯",
+  "license": "BSD-2-Clause"
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="//g.alicdn.com/??mui/global/1.2.42/global.css"/>
+    <style>div{line-height: 32px;}</style>
+    <script src="//g.alicdn.com/mui/feloader/4.0.10/feloader-min.js"></script>
+    <script src="//g.alicdn.com/mui/crossimage/4.0.5/seed.js"></script></head>
+<body>
+<div id="image">
+    初始地址:<input type="text" size="100" id="input_init" value="//img01.daily.taobaocdn.net/tfscom/T2uGNcXdpXXXb1upjX.jpg_100x100.jpg"/>
+</div>
+<div id="param">
+    <p>源图：<a href="" id="param_source"></a></p>
+    <p>尺寸：<a id="param_size"></a><select>
+        <option>保持不变</option>
+        <option>空</option>
+        <option>sum</option>
+        <option>m</option>
+        <option>b</option></select></p>
+    <p>裁剪：<a id="param_crop"></a></p>
+    <p>切片：<a id="param_cut"></a></p>
+    <p>切圆：<a id="param_circle"></a></p>
+    <p>质量：<a id="param_quality"></a></p>
+    <p>旋转：<a id="param_rotate"></a></p>
+    <p>锐化：<a id="param_sharpen"></a></p>
+    <p>格式：<a id="param_format"></a></p>
+</div>
+<div id="preview">
+    <img width="33%" id="preview_init"/>
+    <img width="33%" id="preview_src"/>
+    <img width="33%" id="preview_target"/>
+</div>
+</body>
+</html>
+<script language="javascript">
+    function refresh() {
+    require(["mui/crossimage/index","mui/zepto/zepto"], function (Crossimage,$) {
+            var initUrl = $("#input_init").val();
+            $("#preview_init").src = initUrl;
+            var sourceUrl = Crossimage.getSourceUrl(initUrl);
+            $("#preview_src").src = sourceUrl;
+            $("#param_source").href = sourceUrl;
+            $("#param_source").html(sourceUrl);
+            var params = Crossimage.getParams(initUrl);
+            $("#param_size").html(params.size || "");
+            $("#param_crop").html( params.crop || "");
+            $("#param_cut").html(params.cut || "");
+            $("#param_circle").html(, params.circle || "");
+            $("#param_quality").html(params.quality || "");
+            $("#param_rotate").html(params.rotate || "");
+            $("#param_sharpen").html(params.sharpen || "");
+            $("#param_format").html(params.format || "");
+        });
+    }
+    document.getElementById("#input_init").addEventListener( "change", refresh);
+    refresh();
+</script>

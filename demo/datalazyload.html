@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Crossimage和datalazyload结合使用</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <script src="//g.alicdn.com/mui/feloader/4.0.10/feloader-min.js"></script>
+    <script src="//g.alicdn.com/mui/crossimage/4.0.5/seed.js"></script>
+        <style>
+        .bgImg {
+            width: 200px;
+            height: 200px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            text-align: center;
+            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale) progid:DXImageTransform.Microsoft.Matrix(sizingMethod='clip to original');
+            -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale) progid:DXImageTransform.Microsoft.Matrix(sizingMethod = 'clip to original')";
+        }
+    </style>
+</head>
+<body>
+<p>本范例演示如何对使用懒加载的图片自动使用Crossimage处理</p>
+<div class="lazy-load-container">
+    <img class="lazyImg" width="200" src="http://a.tbcdn.cn/kissy/1.0.0/build/imglazyload/spaceball.gif"
+         data-ks-lazyload="//img.alicdn.com/Crossimage/i1/TB16wf1IXXXXXc7XXXXWpHvHXXX-990-200.jpg_q75.jpg"/>
+
+    <div class="bgImg" data-ks-lazyload-bg="//img.alicdn.com/Crossimage/i1/TB16wf1IXXXXXc7XXXXWpHvHXXX-990-200.jpg_q75.jpg" alt="">
+        测试背景图片
+    </div>
+</div>
+<script type="text/javascript">
+    require(["mui/crossimage/index","mui/datalazyload/index"], function (Crossimage,Datalazyload) {
+          var datalazyload = DataLazyload.instance();
+        datalazyload.addStartListener(Crossimage.lazyListener(".lazyImg", ".lazy-load-container", {displayWidth: 200}));
+        datalazyload.addStartListener(Crossimage.lazyListener(".bgImg", ".lazy-load-container", {displayWidth: 200, displayHeight: 200}));
+        datalazyload.addElements(".lazy-load-container");
+    });
+</script>
+</body>
+</html>
